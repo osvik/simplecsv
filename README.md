@@ -69,7 +69,7 @@ position := x.GetHeaderPosition("Gender")
 
 Rename header: (old header, new header)
 
-```
+```go
 x, headerExists := x.RenameHeader("ID", "IDnumber")
 ```
 
