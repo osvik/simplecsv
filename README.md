@@ -159,6 +159,18 @@ var wasDeleted bool
 x, wasDeleted = x.DeleteRow(1)
 ```
 
+### Column
+
+#### Add
+
+To add a column at the end of the CSV:
+
+```go
+var wasSucessful bool
+x, wasSucessful = x.AddEmptyColumn("NewColumn")
+```
+
+
 ### Cells
 
 #### Get
@@ -193,5 +205,4 @@ x, wasChanged = x.SetCellByField("Age", 1, "27")
 
 ## To do
 
-* `AddEmptyColumn` - Method to append an empty column to the csv
 * Search and match methods
