@@ -81,6 +81,27 @@ func (s SimpleCsv) SetRowFromMap(rowNumber int, rowValue map[string]string) (Sim
 	return s, modified
 }
 
+// UpdateRowCellsFromMap replaces a row by the maps value
+// Ignores keys with unexistiging headers
+// Fills the old value where the key does not exist
+func (s SimpleCsv) UpdateRowCellsFromMap(rowNumber int, rowValue map[string]string) (SimpleCsv, bool) {
+	headers := s.GetHeaders()
+	var newRow []string
+	var modified bool
+	for _, v := range headers {
+		value, _ := rowValue[v]
+		if value != "" {
+			newRow = append(newRow, value)
+		} else {
+			oldValue, _ := s.GetCellByField(v, rowNumber)
+			newRow = append(newRow, oldValue)
+		}
+
+	}
+	s, modified = s.SetRow(rowNumber, newRow)
+	return s, modified
+}
+
 // DeleteRow deletes the row
 func (s SimpleCsv) DeleteRow(rowNumber int) (SimpleCsv, bool) {
 	if rowNumber >= 0 && rowNumber < len(s) {
