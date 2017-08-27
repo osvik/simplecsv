@@ -244,6 +244,15 @@ rowsWithWord, validFieldName := x.FindInField("Age", "27")
 
 If the field name does not exist, the second value returned (`validFieldName`) is false.
 
+#### Match in column
+
+Find where results match a regular expression in the third column (column 2):
+
+```go 
+rowsWithWord, areParamsOk := x.MatchInColumn(2, "p([a-z]+)ch$")
+```
+
+Use ^ and $ in the regular expression to match exact results.
 
 ## To do
 
