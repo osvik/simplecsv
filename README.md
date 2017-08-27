@@ -218,6 +218,21 @@ var wasChanged bool
 x, wasChanged = x.SetCellByField("Age", 1, "27")
 ```
 
+### Find
+
+#### Find in column
+
+Find the word "27" in the first column (column 0):
+
+```go 
+var validColumn bool 
+x, validColumn = x.FindInColumn(0, "27")
+```
+
+It returns a slice of rownumbers (int) where you can find the word. Please note that in simplecsv all cells are strings.
+
+If it doesn't find the, return an empty slice.
+
 ## To do
 
-* Search and match methods
+* More search and match methods
