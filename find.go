@@ -1,6 +1,7 @@
 package simplecsv
 
 import (
+	"regexp"
 	"strings"
 )
 
@@ -50,5 +51,34 @@ func (s SimpleCsv) FindInField(columnName string, word string) ([]int, bool) {
 	}
 
 	return results, validColumn
+
+}
+
+// MatchInColumn returns a slice with the rownumbers where the regular expression applies in the  columnPosition
+// If the column or regular expression are not valid it returns an empty slice and a second false value
+func (s SimpleCsv) MatchInColumn(columnPosition int, regularexpression string) ([]int, bool) {
+	var ok bool
+	results := []int{}
+
+	r, u := regexp.Compile(regularexpression)
+
+	if u != nil {
+		ok = false
+		return results, ok
+	}
+	if columnPosition < 0 || columnPosition >= len(s[0]) {
+		ok = false
+		return results, ok
+	}
+
+	ok = true
+	numberOfRows := len(s)
+	for i := 0; i < numberOfRows; i++ {
+		if r.MatchString(s[i][columnPosition]) {
+			results = append(results, i)
+		}
+	}
+
+	return results, ok
 
 }
