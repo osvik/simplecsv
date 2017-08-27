@@ -134,7 +134,20 @@ mymap2["Age"] = "62"
 mymap2["Gender"] = "F"
 mymap2["ID"] = "6463246"
 var wasSet bool
-x, wasAdded = x.SetRowFromMap(1, mymap2)
+x, wasSet = x.SetRowFromMap(1, mymap2)
+```
+
+#### Update
+
+Unlike `SetRowFromMap`, `UpdateRowCellsFromMap` does not erase the cells value just because the column names are not keys in the  map. It updates the cells that have the column name in the map and maintains the value of all the others.
+
+To update the age in row 1:
+
+```go
+mymap3 := make(map[string]string)
+mymap3["Age"] = "63"
+var wasUpdated bool
+x, wasUpdated = x.UpdateRowCellsFromMap(1, mymap3)
 ```
 
 #### Delete
