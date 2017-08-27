@@ -29,3 +29,11 @@ func (s SimpleCsv) RemoveColumn(columnPosition int) (SimpleCsv, bool) {
 
 	return s, removed
 }
+
+// RemoveColumnByName removes column by name
+func (s SimpleCsv) RemoveColumnByName(columnName string) (SimpleCsv, bool) {
+	var removed bool
+	columnPosition := s.GetHeaderPosition(columnName)
+	s, removed = s.RemoveColumn(columnPosition)
+	return s, removed
+}
