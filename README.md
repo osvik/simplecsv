@@ -254,8 +254,17 @@ rowsWithWord, areParamsOk := x.MatchInColumn(2, "p([a-z]+)ch$")
 
 Use ^ and $ in the regular expression to match exact results.
 
+#### Match in field
+
+Same as with MatchInColumn, but with a field (column name). Find where results match a regular expression in the third column (column "ID"):
+
+```go 
+rowsWithWord, areParamsOk := x.MatchInField("ID", "p([a-z]+)ch$")
+```
+
+Use ^ and $ in the regular expression to match exact results.
+
 ## To do
 
-* Match in field
 * Boolean operators OR, AND and NOT
 
