@@ -170,6 +170,21 @@ var wasSucessful bool
 x, wasSucessful = x.AddEmptyColumn("NewColumn")
 ```
 
+#### Remove
+
+To remove a column at position 1 (second column, because it's zero based):
+
+```go
+var wasRemoved bool
+x, wasRemoved = x.RemoveColumn(1)
+```
+
+To remove a column by name:
+
+```go
+var wasRemoved bool
+x, wasRemoved = x.RemoveColumnByName("Gender")
+```
 
 ### Cells
 
