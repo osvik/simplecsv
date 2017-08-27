@@ -256,4 +256,6 @@ Use ^ and $ in the regular expression to match exact results.
 
 ## To do
 
-* More search and match methods
+* Match in field
+* Boolean operators OR, AND and NOT
+
