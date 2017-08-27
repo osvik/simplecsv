@@ -228,9 +228,21 @@ Find the word "27" in the first column (column 0):
 rowsWithWord, validColumn := x.FindInColumn(0, "27")
 ```
 
-It returns a slice of rownumbers (int) where you can find the word. Please note that in simplecsv all cells are strings.
+It returns a slice of rownumbers (int) where you can find the word in the column position. Please note that in simplecsv all cells are strings.
 
-If it doesn't find the, return an empty slice.
+If it doesn't find the value, it returns an empty slice.
+
+#### Find in field
+
+The same as `FindInColumn` but using a column/field name instead of position. Please note that `FindInField`, unlike `FindInColumn` never includes the header in the search result.
+
+```go 
+rowsWithWord, validFieldName := x.FindInField("Age", "27")
+```
+
+If the field name does not exist, the second value returned (`validFieldName`) is false.
+
+
 
 ## To do
 
