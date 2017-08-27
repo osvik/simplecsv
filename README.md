@@ -179,6 +179,13 @@ var wasRemoved bool
 x, wasRemoved = x.RemoveColumn(1)
 ```
 
+To remove a column by name:
+
+```go
+var wasRemoved bool
+x, wasRemoved = x.RemoveColumnByName("Gender")
+```
+
 ### Cells
 
 #### Get
