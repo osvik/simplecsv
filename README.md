@@ -232,6 +232,8 @@ It returns a slice of rownumbers (int) where you can find the word in the column
 
 If it doesn't find the value, it returns an empty slice.
 
+In `FindInColumn` and in `FindInField` case does not matter. Foo = foo = FOO.
+
 #### Find in field
 
 The same as `FindInColumn` but using a column/field name instead of position. Please note that `FindInField`, unlike `FindInColumn` never includes the header in the search result.
@@ -241,7 +243,6 @@ rowsWithWord, validFieldName := x.FindInField("Age", "27")
 ```
 
 If the field name does not exist, the second value returned (`validFieldName`) is false.
-
 
 
 ## To do
