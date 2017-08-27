@@ -72,3 +72,71 @@ func TestSimpleCsv_FindInColumn(t *testing.T) {
 		})
 	}
 }
+
+func TestSimpleCsv_FindInField(t *testing.T) {
+	type args struct {
+		columnName string
+		word       string
+	}
+	tests := []struct {
+		name  string
+		s     SimpleCsv
+		args  args
+		want  []int
+		want1 bool
+	}{
+		{name: "FindInField1",
+			want:  []int{2, 3},
+			want1: true,
+			s: SimpleCsv{
+				{"Ann", "Ban", "Cann"},
+				{"Moo", "foo", "soo"},
+				{"Net", "bar", "Kap"},
+				{"Net", "Bar", "Kap"},
+			},
+			args: args{
+				columnName: "Ban",
+				word:       "BAR",
+			},
+		},
+		{name: "FindInField2",
+			want:  []int{},
+			want1: true,
+			s: SimpleCsv{
+				{"Ann", "Ban", "Cann"},
+				{"Moo", "foo", "soo"},
+				{"Net", "bar", "Kap"},
+				{"Net", "Bar", "Kap"},
+			},
+			args: args{
+				columnName: "Ban",
+				word:       "ZEN",
+			},
+		},
+		{name: "FindInField3",
+			want:  []int{},
+			want1: false,
+			s: SimpleCsv{
+				{"Ann", "Ban", "Cann"},
+				{"Moo", "foo", "soo"},
+				{"Net", "bar", "Kap"},
+				{"Net", "Bar", "Kap"},
+			},
+			args: args{
+				columnName: "Nek",
+				word:       "BAR",
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, got1 := tt.s.FindInField(tt.args.columnName, tt.args.word)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("SimpleCsv.FindInField() got = %v, want %v", got, tt.want)
+			}
+			if got1 != tt.want1 {
+				t.Errorf("SimpleCsv.FindInField() got1 = %v, want %v", got1, tt.want1)
+			}
+		})
+	}
+}
