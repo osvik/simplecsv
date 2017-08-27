@@ -102,3 +102,60 @@ func TestSimpleCsv_RemoveColumn(t *testing.T) {
 		})
 	}
 }
+
+func TestSimpleCsv_RemoveColumnByName(t *testing.T) {
+	type args struct {
+		columnName string
+	}
+	tests := []struct {
+		name  string
+		s     SimpleCsv
+		args  args
+		want  SimpleCsv
+		want1 bool
+	}{
+		{name: "RemoveColumnByName1",
+			want: SimpleCsv{
+				{"Ann", "Cann"},
+				{"Moo", "soo"},
+				{"Ah", "Ih"},
+			},
+			want1: true,
+			s: SimpleCsv{
+				{"Ann", "Ban", "Cann"},
+				{"Moo", "foo", "soo"},
+				{"Ah", "Eh", "Ih"},
+			},
+			args: args{
+				columnName: "Ban",
+			},
+		},
+		{name: "RemoveColumnByName2",
+			want: SimpleCsv{
+				{"Ann", "Ban", "Cann"},
+				{"Moo", "foo", "soo"},
+				{"Ah", "Eh", "Ih"},
+			},
+			want1: false,
+			s: SimpleCsv{
+				{"Ann", "Ban", "Cann"},
+				{"Moo", "foo", "soo"},
+				{"Ah", "Eh", "Ih"},
+			},
+			args: args{
+				columnName: "DontExist",
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, got1 := tt.s.RemoveColumnByName(tt.args.columnName)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("SimpleCsv.RemoveColumnByName() got = %v, want %v", got, tt.want)
+			}
+			if got1 != tt.want1 {
+				t.Errorf("SimpleCsv.RemoveColumnByName() got1 = %v, want %v", got1, tt.want1)
+			}
+		})
+	}
+}
