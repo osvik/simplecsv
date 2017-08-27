@@ -140,3 +140,86 @@ func TestSimpleCsv_FindInField(t *testing.T) {
 		})
 	}
 }
+
+func TestSimpleCsv_MatchInColumn(t *testing.T) {
+	type args struct {
+		columnPosition    int
+		regularexpression string
+	}
+	tests := []struct {
+		name  string
+		s     SimpleCsv
+		args  args
+		want  []int
+		want1 bool
+	}{
+		{name: "MatchInColumn1",
+			want:  []int{2, 3, 4},
+			want1: true,
+			s: SimpleCsv{
+				{"Ann", "Ban", "Cann"},
+				{"Moo", "peaching", "soo"},
+				{"Net", "peach", "Kap"},
+				{"Net", "punch", "Kap"},
+				{"Net", "unpunch", "Kap"},
+			},
+			args: args{
+				columnPosition:    1,
+				regularexpression: "p([a-z]+)ch$",
+			},
+		},
+		{name: "MatchInColumn2",
+			want:  []int{},
+			want1: true,
+			s: SimpleCsv{
+				{"Ann", "Ban", "Cann"},
+				{"Moo", "foo", "soo"},
+				{"Net", "peach", "Kap"},
+				{"Net", "punch", "Kap"},
+			},
+			args: args{
+				columnPosition:    1,
+				regularexpression: "z([a-z]+)ch",
+			},
+		},
+		{name: "MatchInColumn3",
+			want:  []int{},
+			want1: false,
+			s: SimpleCsv{
+				{"Ann", "Ban", "Cann"},
+				{"Moo", "foo", "soo"},
+				{"Net", "bar", "Kap"},
+				{"Net", "Bar", "Kap"},
+			},
+			args: args{
+				columnPosition:    3,
+				regularexpression: "p([a-z]+)ch$",
+			},
+		},
+		{name: "MatchInColumn4",
+			want:  []int{},
+			want1: false,
+			s: SimpleCsv{
+				{"Ann", "Ban", "Cann"},
+				{"Moo", "foo", "soo"},
+				{"Net", "bar", "Kap"},
+				{"Net", "Bar", "Kap"},
+			},
+			args: args{
+				columnPosition:    1,
+				regularexpression: "[",
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, got1 := tt.s.MatchInColumn(tt.args.columnPosition, tt.args.regularexpression)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("SimpleCsv.MatchInColumn() got = %v, want %v", got, tt.want)
+			}
+			if got1 != tt.want1 {
+				t.Errorf("SimpleCsv.MatchInColumn() got1 = %v, want %v", got1, tt.want1)
+			}
+		})
+	}
+}
