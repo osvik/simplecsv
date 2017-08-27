@@ -193,6 +193,5 @@ x, wasChanged = x.SetCellByField("Age", 1, "27")
 
 ## To do
 
-* `UpdateRowCellsFromMap` - Like `SetRowFromMap` but maintaining old values when there's not a replacement value.
 * `AddEmptyColumn` - Method to append an empty column to the csv
 * Search and match methods
