@@ -82,3 +82,21 @@ func (s SimpleCsv) MatchInColumn(columnPosition int, regularexpression string) (
 	return results, ok
 
 }
+
+// MatchInField returns a slice with the rownumbers where the regular expression applies in the column name
+func (s SimpleCsv) MatchInField(columnName string, regularexpression string) ([]int, bool) {
+
+	columnPosition := s.GetHeaderPosition(columnName)
+	var ok bool
+	results := []int{}
+
+	if columnPosition == -1 {
+		ok = false
+		return results, ok
+	}
+
+	results, ok = s.MatchInColumn(columnPosition, regularexpression)
+
+	return results, ok
+
+}
