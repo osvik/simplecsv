@@ -90,13 +90,25 @@ func (s SimpleCsv) MatchInField(columnName string, regularexpression string) ([]
 	var ok bool
 	results := []int{}
 
+	r, u := regexp.Compile(regularexpression)
+
 	if columnPosition == -1 {
 		ok = false
 		return results, ok
 	}
 
-	results, ok = s.MatchInColumn(columnPosition, regularexpression)
+	if u != nil {
+		ok = false
+		return results, ok
+	}
 
+	ok = true
+	numberOfRows := len(s)
+	for i := 1; i < numberOfRows; i++ {
+		if r.MatchString(s[i][columnPosition]) {
+			results = append(results, i)
+		}
+	}
 	return results, ok
 
 }

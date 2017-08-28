@@ -264,6 +264,8 @@ rowsWithWord, areParamsOk := x.MatchInField("ID", "p([a-z]+)ch$")
 
 Use ^ and $ in the regular expression to match exact results.
 
+Please note that `MatchInField`, unlike `MatchInColumn` never includes the header in the search result.
+
 ## To do
 
 * Boolean operators OR, AND and NOT
