@@ -160,3 +160,47 @@ func Test_contains(t *testing.T) {
 	}
 }
 
+func TestNotIndex(t *testing.T) {
+	type args struct {
+		index []int
+		min   int
+		max   int
+	}
+	tests := []struct {
+		name string
+		args args
+		want []int
+	}{
+		{name: "NotInIndex1",
+			want: []int{2, 4, 6},
+			args: args{
+				index: []int{1, 3, 5, 7},
+				min:   1,
+				max:   7,
+			},
+		},
+		{name: "NotInIndex2",
+			want: []int{2, 4, 6, 0},
+			args: args{
+				index: []int{1, 3, 5, 7},
+				min:   0,
+				max:   7,
+			},
+		},
+		{name: "NotInIndex3",
+			want: []int{},
+			args: args{
+				index: []int{1, 2, 3},
+				min:   1,
+				max:   3,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := NotIndex(tt.args.index, tt.args.min, tt.args.max); !compareUnorderedSlices(got, tt.want) {
+				t.Errorf("NotIndex() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
