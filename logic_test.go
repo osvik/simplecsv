@@ -125,3 +125,38 @@ func TestAndIndex(t *testing.T) {
 		})
 	}
 }
+
+func Test_contains(t *testing.T) {
+	type args struct {
+		s []int
+		e int
+	}
+	tests := []struct {
+		name string
+		args args
+		want bool
+	}{
+		{name: "Contains1",
+			want: true,
+			args: args{
+				s: []int{1, 2, 3, 4},
+				e: 4,
+			},
+		},
+		{name: "Contains2",
+			want: false,
+			args: args{
+				s: []int{1, 2, 3, 4},
+				e: 9,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := contains(tt.args.s, tt.args.e); got != tt.want {
+				t.Errorf("contains() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+

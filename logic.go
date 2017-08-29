@@ -28,6 +28,16 @@ func showsMoreThanTimes(valuesMap map[int]int, min int) []int {
 	return result
 }
 
+// contains checks if a number exits in a slice
+func contains(s []int, e int) bool {
+	for _, a := range s {
+		if a == e {
+			return true
+		}
+	}
+	return false
+}
+
 // OrIndex operates an OR operator in the indexes
 func OrIndex(indexes ...[]int) []int {
 	minTimes := 1
