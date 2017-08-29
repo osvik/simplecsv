@@ -266,7 +266,47 @@ Use ^ and $ in the regular expression to match exact results.
 
 Please note that `MatchInField`, unlike `MatchInColumn` never includes the header in the search result.
 
+### Boolean functions
+
+Use boolean functions AND, OR and NOT to combine indexes and produce other complex indexes that point to rows in the csv. Very useful to produce search results. 
+
+Indexes are slices of row numbers (integrers between 0 or 1 and the length of the csv -1).
+
+#### OR 2 indexes
+
+```go 
+var w []int
+w = simplecsv.OrIndex(a,b)
+w = simplecsv.OrIndex(a,b,c,d,e)
+```
+
+Note: The `OrIndex` function can be used in 2 or more operands.
+
+#### AND 2 indexes
+
+```go 
+var p []int
+p = simplecsv.AndIndex(a,b)
+p = simplecsv.AndIndex(a,b,c,d,e)
+```
+
+Note: The `AndIndex` function can be used in 2 or more operands.
+
+
+#### NOT an index
+
+The code bellow returns the negative of the index `g`, between row 1 and row 4. If `g` is an index with the values `{1, 2}` the negative of `g` is `{3, 4}`. Because 3 and 4 are the integrers between 1 and 4 that are not in `p`.
+
+```go 
+var g []int
+min := 1
+max := 4
+p = simplecsv.NotIndex(g, min, max)
+```
+
+Note: For csvs with headers the min value is usually 1 and for csvs without headers the min value is usually 0.
+
 ## To do
 
-* Boolean operators OR, AND and NOT
-
+* Method to create new CSVs from indexes of other csvs
+* Method to simplify CSVs by removing extra columns 
