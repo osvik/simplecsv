@@ -61,3 +61,20 @@ func AndIndex(indexes ...[]int) []int {
 	result := showsMoreThanTimes(valuesMap, minTimes)
 	return result
 }
+
+// NotIndex negates the index between a min value and a max value
+// The min value tipically is either 0 or 1 (without and with headers)
+// The max value tipically is the csv length - 1 (number of rows -1).
+// A table with a header and 2 rows (length = 3) can have indexes with values of 1 and 2
+func NotIndex(index []int, min, max int) []int {
+	negativeIndex := []int{}
+
+	for i := min; i <= max; i++ {
+		// If i exists in array as value (in any position) do noting (continue)
+		if contains(index, i) {
+			continue
+		}
+		negativeIndex = append(negativeIndex, i)
+	}
+	return negativeIndex
+}
