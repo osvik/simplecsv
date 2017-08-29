@@ -295,7 +295,7 @@ Note: The `AndIndex` function can be used in 2 or more operands.
 
 #### NOT an index
 
-The code bellow returns the negative of the index `g`, between row 1 and row 4. If `g` is an index with the values `{1, 2}` the negative of `g` is `{3, 4}`. Because 3 and 4 are the integrers between 1 and 4 that are not in `p`.
+The code bellow returns the negative of the index `g`, between row 1 and row 4. If `g` is an index with the values `{1, 2}` the negative of `g` is `{3, 4}`. Because 3 and 4 are the integrers between 1 and 4 that are not in `g`.
 
 ```go 
 var g []int
