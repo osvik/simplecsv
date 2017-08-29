@@ -5,7 +5,22 @@ import (
 	"testing"
 )
 
+// compareUnorderedSlices compares if 2 slices contain the same elements in any order
 func compareUnorderedSlices(x, y interface{}) bool {
+	nx := x.([]int)
+	ny := y.([]int)
+
+	for _, v := range nx {
+		if !contains(ny, v) {
+			return false
+		}
+	}
+
+	for _, k := range ny {
+		if !contains(nx, k) {
+			return false
+		}
+	}
 	return true
 }
 
