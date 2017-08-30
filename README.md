@@ -306,7 +306,20 @@ p = simplecsv.NotIndex(g, min, max)
 
 Note: For csvs with headers the min value is usually 1 and for csvs without headers the min value is usually 0.
 
+### Only 
+
+Only are 2 functions to simplify and sort a csv.
+
+#### Only this rows
+
+It removes rows that are not in the index and reorders a CSV by the index order. If header is true, it starts by the csv header.
+
+```go 
+newIndex := []int{1,3}
+header := true
+x = x.OnlyThisRows(newIndex, header)
+
+```
 ## To do
 
-* Method to create new CSVs from indexes of other csvs
-* Method to simplify CSVs by removing extra columns 
+* `OnlyThisFields` - Method to simplify CSVs by removing extra columns and sorting columns
