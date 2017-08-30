@@ -21,10 +21,7 @@ func (s SimpleCsv) OnlyThisRows(rowsIndex []int, header bool) (SimpleCsv, bool) 
 
 	var rowToAdd []string
 	for _, g := range rowsIndex {
-		rowToAdd, ok = s.GetRow(g)
-		if ok == false {
-			return newCsv, ok
-		}
+		rowToAdd, _ = s.GetRow(g)
 		newCsv = append(newCsv, rowToAdd)
 	}
 	return newCsv, ok
