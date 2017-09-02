@@ -67,3 +67,56 @@ func TestSimpleCsv_OnlyThisRows(t *testing.T) {
 		})
 	}
 }
+
+func TestSimpleCsv_OnlyThisFields(t *testing.T) {
+	type args struct {
+		fields []string
+	}
+	tests := []struct {
+		name  string
+		s     SimpleCsv
+		args  args
+		want  SimpleCsv
+		want1 bool
+	}{
+		{name: "OnlyThisFields1",
+			want1: true, want: SimpleCsv{
+				{"A", "C"},
+				{"A1", "C1"},
+				{"A2", "C2"},
+				{"A3", "C3"},
+			}, s: SimpleCsv{
+				{"A", "B", "C"},
+				{"A1", "B1", "C1"},
+				{"A2", "B2", "C2"},
+				{"A3", "B3", "C3"},
+			}, args: args{
+				fields: []string{"A", "C"},
+			}},
+		{name: "OnlyThisFields2",
+			want1: true, want: SimpleCsv{
+				{"A", "C", "D"},
+				{"A1", "C1", ""},
+				{"A2", "C2", ""},
+				{"A3", "C3", ""},
+			}, s: SimpleCsv{
+				{"A", "B", "C"},
+				{"A1", "B1", "C1"},
+				{"A2", "B2", "C2"},
+				{"A3", "B3", "C3"},
+			}, args: args{
+				fields: []string{"A", "C", "D"},
+			}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, got1 := tt.s.OnlyThisFields(tt.args.fields)
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("SimpleCsv.OnlyThisFields() got = %v, want %v", got, tt.want)
+			}
+			if got1 != tt.want1 {
+				t.Errorf("SimpleCsv.OnlyThisFields() got1 = %v, want %v", got1, tt.want1)
+			}
+		})
+	}
+}
