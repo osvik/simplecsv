@@ -317,9 +317,18 @@ It removes rows that are not in the index and reorders a CSV by the index order.
 ```go 
 newIndex := []int{1,3}
 header := true
-x = x.OnlyThisRows(newIndex, header)
-
+x, _ = x.OnlyThisRows(newIndex, header)
 ```
+
+#### Only this fields
+
+Removes fields that are not in the list of fields, reorders the CSV by the list of fields and adds fields that do not exist as blank fields.
+
+```go 
+fieldsList := []string{"Age","ID"}
+x, _ = x.OnlyThisFields(fieldsList)
+```
+
 ## To do
 
 * `OnlyThisFields` - Method to simplify CSVs by removing extra columns and sorting columns
