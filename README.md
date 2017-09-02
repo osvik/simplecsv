@@ -331,4 +331,4 @@ x, _ = x.OnlyThisFields(fieldsList)
 
 ## To do
 
-* `OnlyThisFields` - Method to simplify CSVs by removing extra columns and sorting columns
+* Function to sort an index, incorporate that function to all methods that return and index.
