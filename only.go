@@ -26,3 +26,25 @@ func (s SimpleCsv) OnlyThisRows(rowsIndex []int, header bool) (SimpleCsv, bool) 
 	}
 	return newCsv, ok
 }
+
+// OnlyThisFields returns a simplecsv with the fields
+func (s SimpleCsv) OnlyThisFields(fields []string) (SimpleCsv, bool) {
+
+	var row []string
+	var fieldToAdd string
+	lenghS := len(s)
+
+	newCsv := CreateEmpyCsv(fields)
+
+	for i := 1; i < lenghS; i++ {
+		for _, n := range fields {
+			fieldToAdd, _ = s.GetCellByField(n, i)
+			row = append(row, fieldToAdd)
+		}
+		newCsv, _ = newCsv.AddRow(row)
+		row = []string{}
+
+	}
+
+	return newCsv, true
+}
