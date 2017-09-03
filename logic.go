@@ -67,14 +67,22 @@ func AndIndex(indexes ...[]int) []int {
 // The max value tipically is the csv length - 1 (number of rows -1).
 // A table with a header and 2 rows (length = 3) can have indexes with values of 1 and 2
 func NotIndex(index []int, min, max int) []int {
-	negativeIndex := []int{}
 
+	counter := make(map[int]bool)
 	for i := min; i <= max; i++ {
-		// If i exists in array as value (in any position) do noting (continue)
-		if contains(index, i) {
-			continue
-		}
-		negativeIndex = append(negativeIndex, i)
+		counter[i] = false
 	}
+
+	for _, v := range index {
+		counter[v] = true
+	}
+
+	negativeIndex := []int{}
+	for i := min; i <= max; i++ {
+		if counter[i] == false {
+			negativeIndex = append(negativeIndex, i)
+		}
+	}
+
 	return negativeIndex
 }
